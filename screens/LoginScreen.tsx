@@ -1,7 +1,7 @@
 import React, { useState , useContext} from 'react'
 import { View, Text, StatusBar, TextInput, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
 import axios from 'axios'
-import { LoginContext } from '../contexts/LoginContext'
+import { LoginContext } from '../contexts/Contexts'
 
 const LoginScreen = ({navigation} : {navigation:any}) => {
     const [email, onChageEmail] = useState('')

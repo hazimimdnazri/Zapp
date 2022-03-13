@@ -3,13 +3,20 @@ import { View, Text, StatusBar, TextInput, TouchableOpacity, ActivityIndicator, 
 import axios from 'axios'
 
 const RegisterScreen = ({ navigation } : { navigation:any }) => {
-    const [name, onChangeName] = useState('')
-    const [email, onChangeEmail] = useState('')
-    const [password, onChangePassword] = useState('')
-    const [confirmPassword, onChangeConfirmPassword] = useState('')
-    const [isLoading, setLoading] = useState(false)
+    const [name, onChangeName] = useState<string>('')
+    const [email, onChangeEmail] = useState<string>('')
+    const [password, onChangePassword] = useState<string>('')
+    const [confirmPassword, onChangeConfirmPassword] = useState<string>('')
+    const [isLoading, setLoading] = useState<boolean>(false)
 
-    const registerAccount = (name: string, email: string, password: string, confirmPassword: string): any => {
+    interface UserProps {
+        name: string, 
+        email: string, 
+        password: string, 
+        confirmPassword: string
+    };
+
+    const registerAccount: React.FC<UserProps> = ({name, email, password, confirmPassword}): any => {
         setLoading(true)
 
         if(name && email && password && confirmPassword){
@@ -66,7 +73,7 @@ const RegisterScreen = ({ navigation } : { navigation:any }) => {
             <TextInput onChangeText={onChangePassword} value={password} secureTextEntry={true} placeholder='Password' style={{ borderWidth: 1, paddingHorizontal: 20, width: '90%', borderRadius: 15, marginBottom: 20 }}></TextInput>
             <TextInput onChangeText={onChangeConfirmPassword} value={confirmPassword} secureTextEntry={true} placeholder='Confirm Password' style={{ borderWidth: 1, paddingHorizontal: 20, width: '90%', borderRadius: 15 }}></TextInput>
             <View style={{ flexDirection: 'row' }}>
-                <TouchableOpacity onPress={ () => registerAccount(name, email, password, confirmPassword) } style={{ backgroundColor: 'green', width: '35%', height: 45, alignItems: 'center', justifyContent: 'center', borderRadius: 20, marginTop: 30, marginHorizontal: 5 }}>
+                <TouchableOpacity onPress={ () => registerAccount({name, email, password, confirmPassword}) } style={{ backgroundColor: 'green', width: '35%', height: 45, alignItems: 'center', justifyContent: 'center', borderRadius: 20, marginTop: 30, marginHorizontal: 5 }}>
                     <Text style={{ color: 'white', fontWeight: 'bold' }}>Register</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{borderWidth: 2, backgroundColor: 'white', width: '35%', height: 45, alignItems: 'center', justifyContent: 'center', borderRadius: 20, marginTop: 30, marginHorizontal: 5  }}>

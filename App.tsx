@@ -3,6 +3,7 @@ import LoginContainer from './containers/LoginContainer';
 import MainContainer from './containers/MainContainer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View } from 'react-native';
+import { LoginContext } from './contexts/LoginContext';
 
 const App = () => {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -47,7 +48,9 @@ const App = () => {
 	}
 	
 	return (
-		isLoading === true ? <View style={{ width: '100%', height: '100%', backgroundColor: 'black' }}></View> : (loggedIn === true ? <MainContainer setLogin={setLogin} /> : <LoginContainer setLogin = { setLogin }/>)
+		<LoginContext.Provider value={{setLogin}} >
+			{ isLoading === true ? <View style={{ width: '100%', height: '100%', backgroundColor: 'black' }}></View> : (loggedIn === true ? <MainContainer setLogin = { setLogin } /> : <LoginContainer />) }
+		</LoginContext.Provider>
 	)
 };
 

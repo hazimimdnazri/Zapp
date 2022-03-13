@@ -1,13 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState , useContext} from 'react'
 import { View, Text, StatusBar, TextInput, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
 import axios from 'axios'
+import { LoginContext } from '../contexts/LoginContext'
 
-const LoginScreen = ({ setLogin, navigation} : {setLogin:any, navigation:any}) => {
+const LoginScreen = ({navigation} : {navigation:any}) => {
     const [email, onChageEmail] = useState('')
     const [password, onChangePassword] = useState('')
     const [isLoading, setLoading] = useState(false)
+    const { setLogin } : any = useContext(LoginContext)
 
-    const CheckLogin = (email: string, password: string): any => {
+    interface UserProps {
+        email: string, password: string
+    }
+
+    const CheckLogin: React.FC<UserProps> = ({email, password}): any => {
         setLoading(true)
         axios.post('http://192.168.0.104:3000/login', {
             email: email,
@@ -48,7 +54,7 @@ const LoginScreen = ({ setLogin, navigation} : {setLogin:any, navigation:any}) =
                 <TextInput onChangeText={onChageEmail} value={email} placeholder='E-Mail Address' style={{ borderWidth: 1, paddingHorizontal: 20, width: '70%', borderRadius: 15, marginBottom: 20, marginTop: 60 }}></TextInput>
                 <TextInput onChangeText={onChangePassword} value={password} secureTextEntry={true} placeholder='Password' style={{ borderWidth: 1, paddingHorizontal: 20, width: '70%', borderRadius: 15 }}></TextInput>
                 <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity onPress={() => CheckLogin(email, password)} style={{ backgroundColor: '#0d47a1', width: '35%', height: 45, alignItems: 'center', justifyContent: 'center', borderRadius: 20, marginTop: 30, marginHorizontal: 5 }}>
+                    <TouchableOpacity onPress={() => CheckLogin({email, password})} style={{ backgroundColor: '#0d47a1', width: '35%', height: 45, alignItems: 'center', justifyContent: 'center', borderRadius: 20, marginTop: 30, marginHorizontal: 5 }}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Submit</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('Register')} style={{borderWidth: 2, backgroundColor: 'white', width: '35%', height: 45, alignItems: 'center', justifyContent: 'center', borderRadius: 20, marginTop: 30, marginHorizontal: 5  }}>

@@ -10,12 +10,12 @@ const registerName = 'Register'
 
 const Stack = createStackNavigator();
 
-const LoginContainer = ({ setLogin } : {setLogin: any}) => {
+const LoginContainer = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName = { loginName } screenOptions = {() => ({ headerShown: false })}>
-                <Stack.Screen name = { loginName } children = { (props): any => <LoginScreen setLogin = { setLogin } { ...props }/> }/>
-                <Stack.Screen name = { registerName }children = { (props): any => <RegisterScreen { ...props }/> } />
+                <Stack.Screen name = { loginName } component = { LoginScreen }/>
+                <Stack.Screen name = { registerName } component = { RegisterScreen } />
             </Stack.Navigator>
         </NavigationContainer>
     )
